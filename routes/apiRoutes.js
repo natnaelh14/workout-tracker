@@ -16,6 +16,7 @@ router.get('/api/workouts', (req, res) => {
       })
       .catch((err) => {
         res.json(err);
+        if (err) throw err;
       });
   });
 
@@ -37,7 +38,33 @@ router.get('/api/workouts', (req, res) => {
       })
       .catch((err) => {
         res.json(err);
+        if (err) throw err;
       });
   });
+
+  router.post('/api/workouts', (req, res) => {
+    Workout.create({})
+      .then((workout) => {
+        res.json(workout);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  });
+  
+  router.put('/api/workouts/:id', ({ body, params }, res) => {
+    Workout.findByIdAndUpdate(
+      params.id,
+      { $push: { exercises: body } },
+      { new: true, runValidators: true }
+    )
+      .then((workout) => {
+        res.json(workout);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  });
+
 
   module.exports = router;
