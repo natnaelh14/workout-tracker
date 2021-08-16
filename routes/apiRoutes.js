@@ -33,7 +33,6 @@ router.get('/api/workouts', (req, res) => {
       .sort({ _id: -1 })
       .limit(7)
       .then((workout) => {
-        console.log(workout);
         res.json(workout);
       })
       .catch((err) => {
